@@ -1,0 +1,49 @@
+{
+  "name": "yaml-scene-extension",
+  "version": "1.0.0",
+  "description": "A template for yaml-scene extension",
+  "keywords": [
+    "yaml-scene",
+    "extensions",
+    "dev"
+  ],
+  "main": "src",
+  "scripts": {
+    "prepare": "npm run build",
+    "installmodule": "npm install --production --prefix ./dist",
+    "dev": "npx nodemon --watch src --watch test --ext .ts --exec 'node -r ts-node/register -r ./bin/tsconfig-paths-bootstrap.js --inspect-brk src/index.ts'",
+    "test": "jest",
+    "doc": "npx yaml-scene scenes/export_guide.yaml",
+    "build": "yarn clean && yarn build:only",
+    "build:only": "tsc --project tsconfig.build.json && npm run build:resolve-module && npm run build:resolve-package",
+    "build:resolve-module": "node bin/tsconfig",
+    "build:resolve-package": "node bin/update_package",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.1",
+    "@types/lodash": "^4.14.122",
+    "@types/node": "^14.14.6",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.3.5",
+    "yaml-scene": "^1.0.0-beta.0"
+  },
+  "author": {
+    "name": "Đoàn Thuận Thành",
+    "email": "doanthuanthanh88@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/doanthuanthanh88/yaml-scene-extensions"
+  },
+  "bugs": {
+    "url": "https://github.com/doanthuanthanh88/yaml-scene-extensions/issues",
+    "email": "doanthuanthanh88@gmail.com"
+  }
+}
