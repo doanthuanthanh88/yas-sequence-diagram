@@ -1,80 +1,61 @@
 # yas-sequence-diagram
 A Yaml-scene extension which generate sequence diagrams from comment line in code
 
-# Implementation
+# Prerequisite
+Must install `yaml-scene`
 
-Example [Translator](./src/Translator.ts)
+```sh
+  # Install via yarn
+  yarn global add yaml-scene
 
-```ts
-  export class YourExtension implements IElement { 
-    // Proxy object which provides some utils functions (logger...)
-    proxy?: ElementProxy<any>
-    async?: boolean
-    delay?: number
-
-    // Init properties from yaml to object
-    init?(props: any){}
-
-    // Prepare data, replace data value before executing
-    prepare?(){}
-
-    // Execute main flow
-    exec?(){}
-
-    // After executed done need dispose object
-    dispose?(){}
-
-    // Clone new object in loop or template...
-    clone?(){}
-  }
+  # Or install via npm
+  npm install -g yaml-scene
 ```
 
-# Write document
-The project support auto generate document base on comment line in code.
+# How to use
 
-1. Write extension information
+1. Install the extension
+```sh
+  # Install via yarn
+  yarn global add yas-sequence-diagram
 
-    ```js
-    /**
-     * yaml-scene-extension~Translator
-    * @description Translate hello text to vietnamese
-    * @group extension
-    * @order 
-    * @example
-    - yaml-scene-extension~Translator:
-        text: hello
-        var: result
-    - Echo: ${result}
-    */
-    export class Translator implements IElement { ... }
-    ```
+  # Or install via npm
+  npm install -g yas-sequence-diagram
+```
+3. Create a file `seq_diagram_scene.yaml`
+```yaml
+  - yas-sequence-diagram~SequenceDiagram:
+      commentTag: ///             # Prefix each of line which will be handled to document (optional)
+                                  # Default: 
+                                  # .js, .ts, .go, .java is ///
+                                  # .py, .yaml is #/
+                                  # others must be set before run
 
-2. Run `yarn run doc` or `npm run doc` 
-3. A file `GUIDE.md` will be generate to root folder
+      includes: ["src"]           # All of files in these path will be scanned (required)
 
-# Test extension via jest
-The project use `jest` to test project.
+      excludes: []                # All of files in these path will be ignored (optional)
+                                  # Default:
+                                  # .js, .ts is ['node_modules', 'dist']
+                                  # .java is ['bin', 'build']
+                                  # .py is ['__pycache__']
 
-1. Write testing files to `test/`.  
-2. Run `yarn test` or `npm test` to test
+      includePattern: ".+\\.ts$"  # Files matched this pattern will be handled (required)
 
-# Test extension via yaml-scene
-The project allow inject extension into yaml-scene global.
+      outDir: /tmp/sequence_diagram   # Output directory which includes sequence diagrams
+```
 
-1. Create a scenario file at `scenes/test/your_extension.yaml`
-2. Register your extension to yaml-scene
-    ```yaml
-    extensions:
-      - ../../dist/src/Your_Extension        # Register a new extension
-    ```
-3. Call your extension
-    ```yaml
-      - Your_Extension:
-          prop1: hello
-          prop2: vi
-          var: yourVar
-    ```
-4. Run test
-    ```sh
-      yas scenes/test/your_extension.yaml
-    ```
+4. Make a new output directory
+```sh
+  mkdir /tmp/sequence_diagram
+```
+
+5. Run to generate sequence diagram
+```sh
+  yas seq_diagram_scene.yaml
+```
+
+6. After done, please go to `/sequence_diagram` to see result
+
+# Guide
+
+Please go to [here](./GUIDE.md) for details
