@@ -1,5 +1,5 @@
-# yaml-scene-extensions
-A template to create a new extension in yaml scene
+# yas-sequence-diagram
+A Yaml-scene extension which generate sequence diagrams from comment line in code
 
 # Implementation
 

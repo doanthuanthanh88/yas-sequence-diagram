@@ -1,9 +1,10 @@
 {
-  "name": "yaml-scene-extension",
-  "version": "1.0.0",
-  "description": "A template for yaml-scene extension",
+  "name": "yas-sequence-diagram",
+  "version": "1.0.0-beta.0",
+  "description": "A Yaml-scene extension which generate sequence diagrams from comment line in code",
   "keywords": [
     "yaml-scene",
+    "sequence-diagram",
     "extensions",
     "dev"
   ],
@@ -20,8 +21,15 @@
     "build:resolve-package": "node bin/update_package",
     "clean": "rm -rf dist"
   },
+  "publishConfig": {
+    "tag": "beta",
+    "access": "public"
+  },
   "dependencies": {
     "lodash": "^4.17.11"
+  },
+  "peerDependencies": {
+    "yaml-scene": "^1.0.0-beta.0"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
@@ -40,10 +48,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/doanthuanthanh88/yaml-scene-extensions"
+    "url": "https://github.com/doanthuanthanh88/yas-sequence-diagram"
   },
   "bugs": {
-    "url": "https://github.com/doanthuanthanh88/yaml-scene-extensions/issues",
+    "url": "https://github.com/doanthuanthanh88/yas-sequence-diagram/issues",
     "email": "doanthuanthanh88@gmail.com"
   }
 }
