@@ -1,13 +1,6 @@
-# Command: yas scenes/test/SequenceDiagram.yaml 
-
-title: Test "SequenceDiagram" extension
-extensions:
-  - ../../dist/src/SequenceDiagram        # Register a new extension
-steps:
-  - SequenceDiagram:
-      includes: 
-        - ../../test/resources
-      excludes: []
-      includePattern: ".+\.ts$"
-      outDir: ../../test/resources/result
-      
+- yas-sequence-diagram~SequenceDiagram:
+    includes: 
+      - ../../test/resources
+    excludes: []
+    includePattern: .+\.ts$
+    outDir: ../../test/resources/result

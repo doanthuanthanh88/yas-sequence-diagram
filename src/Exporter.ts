@@ -53,15 +53,18 @@ ${subjects.map(sub => sub.toMMD()).join('\n')}
   }
 
   private async exportSequence(functions: FunctionModel[]) {
-    await Promise.all(functions.filter(func => !func.name).map(func => {
-      new FileDataSource(join(this.outDir, func.description + '.md'))
-        .write(`# ${func.description}
+    await Promise.all(functions
+      .filter(func => !func.name)
+      .sort((a, b) => a.description > b.description ? 1 : -1)
+      .map(func => {
+        new FileDataSource(join(this.outDir, func.description + '.md'))
+          .write(`# ${func.description}
 \`\`\`mermaid
 sequenceDiagram
 
 ${func.toMMD(func.context || 'App', 0)}
 \`\`\`
 `)
-    }))
+      }))
   }
 }

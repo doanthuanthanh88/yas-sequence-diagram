@@ -20,15 +20,22 @@
 		},
 		{
 			"type": "npm",
+			"script": "test:debug",
+			"group": "test",
+			"problemMatcher": [],
+			"label": "Debug unit test"
+		},
+		{
+			"type": "npm",
 			"script": "dev",
 			"problemMatcher": [],
-			"label": "Develop"
+			"label": "Dev"
 		},
 		{
 			"type": "npm",
 			"script": "doc",
 			"problemMatcher": [],
-			"label": "Generate guideline"
+			"label": "Generate guideline document"
 		}
 	]
 }
