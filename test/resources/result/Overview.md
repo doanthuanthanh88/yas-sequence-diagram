@@ -2,9 +2,9 @@
 ```mermaid
 flowchart LR
 
-App-.->RabbitMQ
-
+Client==>App
 App==>MongoDB
 
-Client==>App
+App-.->RabbitMQ
+
 RabbitMQ-.->Worker

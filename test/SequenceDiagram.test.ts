@@ -15,6 +15,6 @@ steps:
       excludes: []
       includePattern: ".+\.ts$"
       outDir: ${join(__dirname, 'resources/result')}
-`, undefined)
+`)
   })
 })

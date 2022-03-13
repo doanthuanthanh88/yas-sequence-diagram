@@ -1,6 +1,6 @@
 {
   "name": "yas-sequence-diagram",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "A Yaml-scene extension which generate sequence diagrams from comment line in code",
   "keywords": [
     "yaml-scene",
@@ -10,8 +10,7 @@
   ],
   "main": "src",
   "scripts": {
-    "prepack": "yarn build",
-    "postpack": "yarn install --production --modules-folder ./dist/node_modules",
+    "install:dist": "yarn install --production --modules-folder ./dist/node_modules",
     "dev": "npx nodemon --watch src --watch test --ext .ts --exec 'node -r ts-node/register -r ./bin/tsconfig-paths-bootstrap.js --inspect-brk src/index.ts'",
     "start": "npx nodemon --watch src --watch test --ext .ts --exec 'node -r ts-node/register -r ./bin/tsconfig-paths-bootstrap.js src/index.ts'",
     "test": "npx jest",
@@ -29,7 +28,7 @@
     "lodash": "^4.17.11"
   },
   "peerDependencies": {
-    "yaml-scene": "^1.0.0-beta.3"
+    "yaml-scene": "^1.0.0-beta.4"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
@@ -39,7 +38,7 @@
     "ts-jest": "^27.1.3",
     "ts-node": "^9.1.1",
     "typescript": "^4.3.5",
-    "yaml-scene": "^1.0.0-beta.3"
+    "yaml-scene": "^1.0.0-beta.4"
   },
   "author": {
     "name": "Đoàn Thuận Thành",

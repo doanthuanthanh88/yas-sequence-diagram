@@ -9,6 +9,7 @@ on:
       - 'main'
     paths:
       - '**.ts'
+
 jobs:
   build:
 

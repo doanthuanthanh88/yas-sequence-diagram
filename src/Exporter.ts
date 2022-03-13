@@ -32,7 +32,11 @@ export class Exporter {
 - [Overview](./Overview.md)
 
 ## Sequence diagrams
-${functions.filter(func => !func.name).map((func, i) => `${+i + 1}. [${func.description}](./${func.filename}.md)`).join('\n')}
+${functions
+          .filter(func => !func.name)
+          .sort((a, b) => a.description > b.description ? 1 : -1)
+          .map((func, i) => `${+i + 1}. [${func.description}](./${func.filename}.md)`)
+          .join('\n')}
 `)
   }
 
@@ -40,9 +44,7 @@ ${functions.filter(func => !func.name).map((func, i) => `${+i + 1}. [${func.desc
     const subjectInfors = functions.map(func => func.getSubjects(func.context || 'App')).flat()
     const subjects = uniqWith(subjectInfors, (a, b) => a.toString() === b.toString())
       .filter(a => a.subject !== a.target)
-      .sort((a, b) => {
-        return a.subject > b.subject ? 1 : -1
-      })
+    // .sort((a, b) => a.subject > b.subject ? 1 : -1)
     new FileDataSource(join(this.outDir, 'Overview.md'))
       .write(`# Overview
 \`\`\`mermaid
@@ -55,7 +57,7 @@ ${subjects.map(sub => sub.toMMD()).join('\n')}
   private async exportSequence(functions: FunctionModel[]) {
     await Promise.all(functions
       .filter(func => !func.name)
-      .sort((a, b) => a.description > b.description ? 1 : -1)
+      // .sort((a, b) => a.description > b.description ? 1 : -1)
       .map(func => {
         new FileDataSource(join(this.outDir, func.description + '.md'))
           .write(`# ${func.description}
