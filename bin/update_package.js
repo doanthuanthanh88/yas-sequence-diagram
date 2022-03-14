@@ -1,15 +1,14 @@
-const { writeFileSync, readFileSync, copyFileSync } = require('fs')
+const { copyFileSync, existsSync } = require('fs')
 const { join } = require('path')
 
-new Array('package.json', 'yarn.lock', '.npmignore', 'README.md', 'GUIDE.md')
-  .forEach(file => {
-    const fout = join(__dirname, '..', 'dist', file)
-    const fin = join(__dirname, '..', file)
-    if (file === 'package.json') {
-      let json = readFileSync(fin).toString()
-      json = json.replace(/^\s*"prepare"\:.+\n/m, '')
-      writeFileSync(fout, json)
-      return
-    }
-    copyFileSync(fin, fout)
-  })
+const flout = join(__dirname, '..', 'dist')
+if (existsSync(flout)) {
+  new Array('package.json', 'yarn.lock', '.npmignore', 'README.md', 'GUIDE.md')
+    .forEach(file => {
+      const fin = join(__dirname, '..', file)
+      if (existsSync(fin)) {
+        const fout = join(flout, file)
+        copyFileSync(fin, fout)
+      }
+    })
+}
