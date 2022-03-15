@@ -59,4 +59,11 @@ export class RefModel extends ControlModel {
       throw new Error(`Not declared function "${this.name}" yet`);
     return func.getSubjects(context);
   }
+
+  getShapes(context: string): string[] {
+    const func = Parser.AllFunctions.find(func => func.name === this.name);
+    if (!func)
+      throw new Error(`Not declared function "${this.name}" yet`);
+    return func.getShapes(context);
+  }
 }

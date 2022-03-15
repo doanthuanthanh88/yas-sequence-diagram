@@ -172,4 +172,27 @@ export class CommandModel extends ControlModel {
     return [subject];
   }
 
+  getShapes(context: string) {
+    const arr = new Set<string>()
+    let subject = this.subject
+    let target = this.target
+    if (this.subject === '$') {
+      subject = context
+      arr.add(`1|Application|${subject}\0${subject}((${subject}))`)
+    }
+    if (this.target === '$') {
+      target = context
+      arr.add(`1|Application|${target}\0${target}((${target}))`)
+    }
+    if (this.action === '=>') {
+      arr.add(`2|Other Services|${target}\0${target}[[${target}]]`)
+    }
+    arr.add(`9||${subject}\0${subject}`)
+    arr.add(`9||${target}\0${target}`)
+    // if (this.action === '<=') {
+    //   arr.add(`${subject}([${subject}])`)
+    // }
+    return Array.from(arr)
+  }
+
 }

@@ -70,4 +70,8 @@ export class FunctionModel extends ControlModel {
     return this.childs?.map(child => child.getSubjects(context)).flat();
   }
 
+  getShapes(context: string) {
+    return this.childs?.map(child => child.getShapes(context)).flat()
+  }
+
 }

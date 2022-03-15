@@ -8,4 +8,8 @@ export abstract class SupportChildsModel extends ControlModel {
   getSubjects(context: string) {
     return this.childs?.map(child => child.getSubjects(context)).flat();
   }
+
+  getShapes(context: string) {
+    return this.childs?.map(child => child.getShapes(context)).flat();
+  }
 }

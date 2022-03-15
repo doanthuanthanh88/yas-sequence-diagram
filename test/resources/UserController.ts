@@ -5,6 +5,7 @@ export class UserController {
   userService = new UserService()
   authService = new AuthService()
 
+  /// [UserController.validateRequest]
   private async validateRequest(req, res) {
     req
     res
@@ -17,7 +18,7 @@ export class UserController {
     /// "Client" => "$": Request to create new user
 
     /// GROUP Validate request data
-    ///   "$" > "$": Validate
+    ///   [UserController.validateRequest]
     await this.validateRequest(req, res)
 
     /// NOTE RIGHT OF "$": Handle business

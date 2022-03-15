@@ -95,6 +95,8 @@ export abstract class ControlModel {
   abstract toMMD(context: string, space?: number): string;
 
   abstract getSubjects(context: string): SubjectInfor[];
+
+  abstract getShapes(context: string): string[]
 }
 
 import { CommandModel } from "./CommandModel";

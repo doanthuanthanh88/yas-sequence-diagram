@@ -10,8 +10,9 @@ export class SubjectInfor {
       case '>':
         return '-->';
       case '->':
+        return '-.->|pub/emit|';
       case '<-':
-        return '-.->';
+        return '-.->|sub/on|';
       default:
         return '';
     }

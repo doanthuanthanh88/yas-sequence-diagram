@@ -20,18 +20,21 @@ export class Exporter {
   async export(functions: FunctionModel[]) {
     await Promise.all([
       this.exportIndex(functions),
-      this.exportSequence(functions),
-      this.exportOverview(functions)
+      this.exportSequence(functions)
     ])
   }
 
   private async exportIndex(functions: FunctionModel[]) {
     new FileDataSource(join(this.outDir, 'README.md'))
-      .write(`# System diagram
-## Overview diagram
-- [Overview](./Overview.md)
+      .write(`# Application document details
+## System overview
+Describe all of components in application
 
-## Sequence diagrams
+${await this.getOverviewMMD(functions)}
+
+## Main flows
+Visualize flows in application to sequence diagrams
+
 ${functions
           .filter(func => !func.name)
           .sort((a, b) => a.description > b.description ? 1 : -1)
@@ -40,18 +43,47 @@ ${functions
 `)
   }
 
-  private async exportOverview(functions: FunctionModel[]) {
+  private async getOverviewMMD(functions: FunctionModel[]) {
     const subjectInfors = functions.map(func => func.getSubjects(func.context || 'App')).flat()
+    let isEnded = true
+    const { shapes } = Array.from(new Set(functions.map(func => func.getShapes(func.context || 'App')).flat()))
+      .sort()
+      .reduce((sum, shape) => {
+        const [prefix, value] = shape.split('\0')
+        const [type, appName] = prefix.substring(2).split('|')
+        if (!sum.appNames.has(appName)) {
+          if (sum.type !== type) {
+            sum.type = type
+            if (!isEnded) {
+              sum.shapes.push('end')
+              isEnded = true
+            }
+            if (type) {
+              sum.shapes.push(`subgraph ${type}`)
+              isEnded = false
+            }
+          }
+          sum.shapes.push(value)
+          sum.appNames.add(appName)
+        }
+        return sum
+      }, { shapes: new Array<string>(), appNames: new Set<string>(), type: '' })
+    if (!isEnded) {
+      shapes.push('end')
+    }
     const subjects = uniqWith(subjectInfors, (a, b) => a.toString() === b.toString())
       .filter(a => a.subject !== a.target)
     // .sort((a, b) => a.subject > b.subject ? 1 : -1)
-    new FileDataSource(join(this.outDir, 'Overview.md'))
-      .write(`# Overview
+    return `
 \`\`\`mermaid
 flowchart LR
+%% Declare shapes
+${shapes.map(shape => shape).join('\n')}
 
+%% Main flows
 ${subjects.map(sub => sub.toMMD()).join('\n')}
-`)
+\`\`\`
+`
   }
 
   private async exportSequence(functions: FunctionModel[]) {

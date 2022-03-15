@@ -36,6 +36,10 @@ export class NoteModel extends ControlModel {
     return []
   }
 
+  getShapes(_context: string): string[] {
+    return []
+  }
+
   static Match(txt: string) {
     const m = txt.match(new RegExp(`^(note\\s+(right of|left of|over))\\s+([^\\:]+)\\s*:\\s*(.*)$`, 'i'));
     if (!m)

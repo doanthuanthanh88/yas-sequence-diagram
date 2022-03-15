@@ -25,8 +25,8 @@ export class UserService {
 
   /// [UserService.createUserInDB]
   private createUserInDB() {
-    /// "$" => "MongoDB": Insert a new user
-    /// "$" <= "MongoDB": Done
+    /// "$" > "MongoDB": Insert a new user
+    /// "$" < "MongoDB": Done
     return null;
   }
 

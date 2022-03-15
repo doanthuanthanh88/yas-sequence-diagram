@@ -5,7 +5,15 @@ sequenceDiagram
 %% [] Create a new user
 Client ->> App: Request to create new user
 OPT Validate request data
-  App ->> App: Validate
+  %% [UserController.validateRequest] 
+  %% [AuthService.checkAuth] 
+  OPT Check authentication
+    App ->> AuthService: Check request permission
+    AuthService -->> App: Response
+    ALT Not permission
+      App -->> Client: Response 401
+    END
+  END
 END
 NOTE RIGHT OF $: Handle business
 %% [UserService.createNewUser] 

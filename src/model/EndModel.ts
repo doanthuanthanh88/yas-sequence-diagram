@@ -9,6 +9,10 @@ export class EndModel extends ControlModel {
     return []
   }
 
+  getShapes(_context: string): string[] {
+    return []
+  }
+
   toMMD(_context: string, space?: number) {
     if (space !== undefined)
       this.space = space;
