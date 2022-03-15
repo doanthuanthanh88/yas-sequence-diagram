@@ -2,11 +2,12 @@
 ```mermaid
 sequenceDiagram
 
-%% [] Create a new user
+%% []
+OPT Create a new user
 Client ->> App: Request to create new user
 OPT Validate request data
-  %% [UserController.validateRequest] 
-  %% [AuthService.checkAuth] 
+  %% [UserController.validateRequest]
+  %% [AuthService.checkAuth]
   OPT Check authentication
     App ->> AuthService: Check request permission
     AuthService -->> App: Response
@@ -15,19 +16,25 @@ OPT Validate request data
     END
   END
 END
-NOTE RIGHT OF $: Handle business
-%% [UserService.createNewUser] 
-PAR 
-  %% [UserService.createUserInDB] 
+NOTE RIGHT OF App: Handle business
+%% [UserService.createNewUser]
+PAR Create new user in db nha
+  %% [UserService.createUserInDB]
+  OPT Create new user in db nha
   App ->> MongoDB: Insert a new user
   MongoDB -->> App: Done
-  %% [UserService.emitCreateUserEvent] 
+  END
+AND Emit event
+  %% [UserService.emitCreateUserEvent]
+  OPT Emit event
   App -) RabbitMQ: Fire event user.create to global
+  END
 END
 ALT Could not create a new user in DB
   App -->> Client: Response 500
 END
 LOOP User classes
   App ->> App: Print class name
+END
 END
 ```

@@ -6,11 +6,30 @@ import { SupportChildsModel } from './SupportChildsModel';
  * @description Scan all of items in list
  * @exampleType custom
  * @example
-```typescript
-/// LOOP List products
-///   "App" => "ProductService": Get a product details
-///   "App" <= "ProductService": Response a product information
+```text
+LOOP Items
+  ...
 ```
+
+### Example
+
+Input:
+
+```typescript
+class Product {
+  scan(products: Product[]) {
+
+    /// LOOP List products
+    for (const product of products) {
+      /// "App" => "ProductService": Get a product details
+      const productInfo = await this.productService.get(product.id)
+      /// "App" <= "ProductService": Response a product information
+    }
+  }
+}
+```
+
+Output:
 
 ```mermaid
 sequenceDiagram

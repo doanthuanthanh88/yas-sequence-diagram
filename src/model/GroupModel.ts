@@ -6,12 +6,25 @@ import { SupportChildsModel } from './SupportChildsModel';
  * @description Group of sequence steps
  * @exampleType custom
  * @example
-```typescript
-/// "Client" => "App": Send a request
+```text
+GROUP Description
+  ...
+```
 
-/// GROUP Validate request
-///   "Client" => "AuthService": Validate request
-///   "Client" <= "AuthService": Response 200
+```typescript
+class AuthService {
+  
+  request() {
+    /// GROUP Validate request
+    function validate() {
+      /// "Client" => "AuthService": Validate request
+      this.authService.validate()
+      /// "Client" <= "AuthService": Response 200
+    }
+    validate()
+  }
+}
+
 ```
 
 ```mermaid

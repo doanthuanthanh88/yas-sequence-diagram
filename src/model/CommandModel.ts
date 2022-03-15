@@ -5,22 +5,47 @@ import { SubjectInfor } from './SubjectInfor';
  * Requests
  * @h2 ##
  * @order 3
- * @description Describle a request to other services.  
- * Example: HTTP requests, grpc requests...
+ * @description Describle a request to other services. (HTTP requests, grpc requests...)
  * @exampleType custom
  * @example
-```typescript
-/// NOTE OVER "Client", "App": Client send a request to App to create a new post
 
-/// "Client" => "App": Create a new post
-/// "Client" <= "App": Response 200
+- Service1 send a request(http, grpc...) to Service2(Other Services)
+  ```text
+    "Service1" => "Service2: Description"
+  ```
+
+- After Service2(Other Services) done, it response to Service1
+  ```text
+    "Service1" <= "Service2: Description"
+  ```
+
+### Example:
+
+Input:
+
+```typescript
+class PostController {
+  createPost(post: Post) {
+    /// "Client" => "$": Create a new post
+
+    /// "$" => "PostService": Create a new post
+    this.postService.create(post)
+    /// "$" <= "PostService": Return Post
+    
+    /// "Client" <= "$": Response 200
+  }
+}
+
 ```
+
+Output:
 
 ```mermaid
 sequenceDiagram
 
-NOTE OVER Client, App: Client send a request to App to create a new post
 Client ->> App: Create a new post
+App ->> PostService: Create a new post
+PostService -->> App: Return Post
 App -->> Client: Response 200
 ```
  */
@@ -29,30 +54,45 @@ App -->> Client: Response 200
  * Actions
  * @h2 ##
  * @order 3
- * @description Describle synchronized actions.  
- * Example: Insert into DB, Push a cache to redis...
+ * @description Describle synchronized actions. (Insert into DB, Push a cache to redis...)
  * @exampleType custom
  * @example
+- Service1 call Component1(DB, itself...) to do something
+  ```text
+    "Service1" > "Component1": Description
+  ```
+- After Component1(DB, itself...) done, it returns something to Service1
+  ```text
+    "Service1" < "Component1": Description
+  ```
+
+Example:
+
+Input: 
+
 ```typescript
-/// NOTE OVER "MyService", "MongoDB": App create a new post into MongoDB
+class PostService {
+  createPost(post: Post) {
+    /// "MyService" > "MongoDB": Create a new post
+    await this.mongoDB.insert(post)
+    /// "MyService" < "MongoDB": Done
 
-/// "MyService" > "MongoDB": Create a new post
-/// "MyService" < "MongoDB": Done
+    /// "MyService" > "Redis": Push post to cached
+    await this.redis.push(post)
+    /// "MyService" < "Redis": Done
+  }
+}
 
-/// NOTE OVER "MyService", "Redis": App push a new post into Redis cached
-
-/// "MyService" > "Redis": Push post to cached
-/// "MyService" < "Redis": Done
 ```
+
+Output:
 
 ```mermaid
 sequenceDiagram
 
-NOTE OVER MyService, MongoDB: App create a new post into MongoDB
 MyService ->> MongoDB: Create a new post
 MongoDB -->> MyService: Done
 
-NOTE OVER MyService, Redis: App push a new post into Redis cached
 MyService ->> Redis: Push post to cached
 Redis -->> MyService: Done
 ```
@@ -65,22 +105,34 @@ Redis -->> MyService: Done
  * @description Publish an async event via RabbitMQ, Kafka, Queue...
  * @exampleType custom
  * @example
+- Service1 publish/emit data to Component1(MessageQueue, EventEmiter...) to do something
+  ```text
+    "Service1" -> "Component1": Description
+  ```
+
+### Example:
+
+Input: 
+
 ```typescript
-/// NOTE OVER "App", "RabbitMQ": App publish to RabbitMQ after creating done
 
-/// "App" -> "RabbitMQ": Emit "post.created"
+class GlobalEvent {
+  postCreated(post: Post) {
+    /// "$" -> "RabbitMQ": Emit "post.created"
+    await this.rabbitMQ.publish('post.created', post)
 
-/// NOTE OVER "App", "App": App emit an event to global events
-
-/// "App" -> "App": Emit "internal.post_created"
+    /// "$" -> "$": Emit "internal.post_created"
+    await this.event.emit('internal.post_created', post)
+  }
+}
 ```
+
+Output:
 
 ```mermaid
 sequenceDiagram
-NOTE OVER App, RabbitMQ: App publish to RabbitMQ after creating done
 App -) RabbitMQ: Emit "post.created"
 
-NOTE OVER App, App: App emit an event to global events
 App -) App: Emit "internal.post_created"
 ```
  */
@@ -92,26 +144,54 @@ App -) App: Emit "internal.post_created"
  * @description Subscribe a queue in RabbitMQ, kafka, global event... to receive data
  * @exampleType custom
  * @example
+- Service1 subscribe/on data from Component1(MessageQueue, EventEmiter...) to do something
+  ```text
+    "Service1" <- "Component1": Description
+  ```
+
+### Example
+
+Input:
+
 ```typescript
-/// NOTE OVER "App", "RabbitMQ": App subscribe from RabbitMQ after creating done
 
-/// "App" <- "RabbitMQ": Subscribe queue "post.created"
+class GlobalEvent {
 
-/// NOTE OVER "App", "App": App subscribe from global events
+  /// [] Subscribe from global
+  onGlobalPostCreated(post: Post) {
+    /// "$" <- "RabbitMQ": Subscribe queue "post.created"
+  }
 
-/// "App" -> "App": Subscribe internal queue "internal.post_created"
+  /// [] Subscribe from internal
+  onInternalPostCreated(post: Post) {
+    /// "$" -> "$": Subscribe internal queue "internal.post_created"
+  }
+  
+}
 ```
+
+Output:
+
+
+File `Subscribe from global.md`
 
 ```mermaid
 sequenceDiagram
 
-NOTE OVER App, RabbitMQ: App subscribe from RabbitMQ after creating done
 RabbitMQ --) App: Subscribe queue "post.created"
 
-NOTE OVER App, App: App subscribe from global events
+```
+
+File `Subscribe from internal.md`
+
+```mermaid
+sequenceDiagram
+
 App --) App: Subscribe internal queue "internal.post_created"
+
 ```
  */
+
 export class CommandModel extends ControlModel {
   private static readonly ACTIONS = ['>', '<', '->', '<-', '=>', '<='];
   subject: string;

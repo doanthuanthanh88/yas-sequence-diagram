@@ -9,32 +9,69 @@ import { Parser } from '../Parser';
  * @description Define a function which will be called in other funtions
  * @exampleType custom
  * @example
-```typescript
-/// [](App) Create a new user
-///   GROUP Reference to requestUser
-///     [requestUser]
+- Ref to steps in this function
+  ```text
+    [Function_Name]
+  ```
+- Create a group contains steps in this function
+  ```text
+    [Function_Name] Description
+  ```
 
-/// [requestUser]
-///   "Client" => "$": Request to create new user
+### Example
+
+Input:
+
+```typescript
+class UserController {
+
+  /// [](App) Create a new user
+  async createUser() {
+
+    /// [requestClass] 
+    await this.requestClass()
+
+    /// [requestUser] This function handle user creating
+    await this.requestUser()
+  }
+
+  /// [requestClass] 
+  private requestClass() {
+    /// "Client" => "$": Request to create a new class
+  }
+
+  /// [requestUser]
+  private requestUser() {
+    /// "Client" => "$": Request to create a new user
+  }
+}
+
 ```
 
-File `Create a new user.md`
+Output:
+
 ```mermaid
 sequenceDiagram
 
-Client ->> App: Request to create new user
+Client ->> App: Request to create a new class
+
+OPT This function handle user creating
+  Client ->> App: Request to create new user
+END
 ```
 
  */
 export class RefModel extends ControlModel {
   name: string;
+  description?: string
 
   static Match(txt: string) {
-    const m = txt.match(new RegExp(`^\\[([^\\]\\s]+)\\]$`));
+    const m = txt.match(new RegExp(`^\\[([^\\]\\s]+)\\](.*)$`));
     if (!m)
       return null;
     const func = new RefModel();
     func.name = m[1].trim();
+    func.description = m[2]?.trim()
     return func;
   }
 
@@ -50,6 +87,7 @@ export class RefModel extends ControlModel {
       throw new Error(`Not declared function "${this.name}" yet`);
     const newFunc = cloneDeep(func);
     // newFunc.space = this.space;
+    newFunc.description = this.description || newFunc.description
     return newFunc.toMMD(context, this.space);
   }
 

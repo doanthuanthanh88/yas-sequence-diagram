@@ -2,7 +2,8 @@ import { SubjectInfor } from "./SubjectInfor";
 
 export abstract class ControlModel {
   current: ControlModel;
-  childs: ControlModel[];
+  protected childs: ControlModel[];
+  parent: ControlModel;
   context?: string
   space: number;
   get tabString() {
@@ -12,6 +13,17 @@ export abstract class ControlModel {
   constructor() {
     this.childs = new Array();
   }
+
+  getChilds() {
+    return this.childs
+  }
+
+  addChild(...childs: ControlModel[]) {
+    childs.forEach(child => child.parent = this)
+    this.childs.push(...childs)
+  }
+
+  applyChilds() { }
 
   get finalChilds() {
     const childs = this.childs?.reduce((sum, step, i) => {
@@ -30,6 +42,7 @@ export abstract class ControlModel {
 
   match(txt: string, space: number) {
     if (this.current?.isRelease(space)) {
+      this.current.applyChilds()
       this.current = null;
     }
     if (!this.current) {
@@ -38,49 +51,49 @@ export abstract class ControlModel {
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = GroupModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = LoopModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = ParallelModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = NoteModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = CommandModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
       model = RefModel.Match(txt);
       if (model) {
         model.space = space;
         this.current = model;
-        this.childs.push(model);
+        this.addChild(model);
         return;
       }
     }

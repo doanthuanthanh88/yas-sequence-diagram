@@ -1,37 +1,74 @@
 import { escape } from 'querystring';
 import { ControlModel } from './ControlModel';
+import { GroupModel } from './GroupModel';
 
 /**
  * Startup function
  * @h2 ##
  * @order 1
- * @description Each of startup function will be generate to a single sequence diagram file
+ * @description Each of startup function will be generated to a single sequence diagram file
  * @exampleType custom
  * @example
+- A new sequence diagram will describe this function. (Context default is App)
+  ```text
+    [] Description
+  ```
+- A startup function with a context.
+  ```text
+    []{Context} Description
+  ```
+
+What's `Context`:  
+> There are 2 contexts in app.  
+> The first is Worker, the second is ApiServer  
+> A function is used in Worker and ApiServer.  
+> So you can pass Worker, or API Server into context to make sequence diagram describe it  
+
+### Example
+
+Input:
+
 ```typescript
-/// [](App) Create a new user
-///   "Client" => "$": Request to create new user
+class UserController {
+  /// [](App) Create a new user
+  createUserRoute() {
+    /// "Client" => "$": Request to create new user
+  }
+}
 ```
 
-File `Create a new user.md`
+Output:  
+File `Create a new user.md` will be generated
+
 ```mermaid
 sequenceDiagram
 
 Client ->> App: Request to create new user
 ```
 
+Input:
+
 ```typescript
-/// [](Worker) Consume from RabbitMQ
-///   "$" <= "RabbitMQ": Consume queue user.created
-///   "$" > "$": Do something here
+class Worker {
+  /// [](Worker) Consume from RabbitMQ
+  onUserCreated(user: User) {
+    /// "$" <= "RabbitMQ": Consume queue user.created
+
+    /// "$" > "$": Print user data
+    console.log(user)
+    ...
+  }
+}
 ```
 
-File `Consume from RabbitMQ.md`
+Output:  
+File `Consume from RabbitMQ.md` will be generated
+
 ```mermaid
 sequenceDiagram
 
 RabbitMQ --) Worker: Consume queue user.created
-Worker ->> Worker: Do something here
+Worker ->> Worker: Print user data
 ```
  */
 export class FunctionModel extends ControlModel {
@@ -43,11 +80,12 @@ export class FunctionModel extends ControlModel {
   }
 
   static Match(txt: string) {
-    const m = txt.match(new RegExp(`^\\[([^\\]\\s]*)\\]\\s*(\\(([^\\)]+)\\))?(\\s(.+))?`));
+    const m = txt.match(new RegExp(`^\\[([^\\]\\s]*)?\\]\\s*(\\(([^\\)]+)\\))?(.*)?`));
     if (!m)
       return null;
+    if (txt === '[UserService.emitCreateUserEvent] Emit event') debugger
     const model = new FunctionModel();
-    model.description = m[5]?.trim();
+    model.description = m[4]?.trim();
     model.name = m[1]?.trim();
     model.context = m[3]?.trim();
     return model;
@@ -61,7 +99,15 @@ export class FunctionModel extends ControlModel {
     const oldSpace = this.space
     if (space !== undefined)
       this.space = space;
-    const mes = [`${this.tabString}%% [${this.name || ''}] ${this.description || ''}`];
+    const mes = [`${this.tabString}%% [${this.name || ''}]`];
+    if (this.description && this.childs.length) {
+      const gm = new GroupModel()
+      gm.description = this.description
+      gm.context = this.context
+      gm.addChild(...this.getChilds())
+      gm.space = this.childs[0].space
+      this.childs = [gm]
+    }
     mes.push(...this.finalChilds.map(step => step.toMMD(context, this.space + step.space - 2 * oldSpace)));
     return mes.join('\n');
   }

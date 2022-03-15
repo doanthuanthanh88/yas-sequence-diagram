@@ -6,15 +6,40 @@ import { SupportChildsModel } from './SupportChildsModel';
  * @description Describe If then else then...
  * @exampleType custom
  * @example
+```text
+IF Condition1
+  ...
+ELSE IF Condition2
+  ...
+ELSE Condition3
+  ...
+```
+
 ```typescript
-/// "Client" => "App": Send a request
-/// IF Request is not authenticated
-///   "Client" <= "App": Response 401
-/// ELSE IF Request is not valid
-///   "Client" <= "App": Response 400
-/// ELSE
-///   "App" > "App": Do something...
-///   "Client" <= "App": Response 200
+class UserController {
+  createUser() {
+    /// "Client" => "$": Send a request
+
+    /// IF Request is not authenticated
+    if (!this.auth.validate()) {
+      /// "Client" <= "$": Response 401
+      throw new HttpError(401)
+    }
+    /// ELSE IF Request is not valid
+    else if(!this.validate()) {
+      /// "Client" <= "$": Response 400
+      throw new HttpError(400)
+    }
+    /// ELSE
+    else {
+      /// "$" > "$": Do something...
+      ...
+      /// "Client" <= "$": Response 200
+      return ""
+    }
+  }
+}
+
 ```
 
 ```mermaid
@@ -45,7 +70,7 @@ export class ConditionModel extends SupportChildsModel {
     return model;
   }
 
-  toMMD(context: string, space?: number) {
+  toMMD(context: string, space: number) {
     const oldSpace = this.space
     if (space !== undefined)
       this.space = space;

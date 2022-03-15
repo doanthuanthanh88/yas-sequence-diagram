@@ -4,9 +4,9 @@ export class UserService {
   async createNewUser() {
     /// PAR
     const [user] = await Promise.all([
-      /// [UserService.createUserInDB]
+      /// [UserService.createUserInDB] Create new user in db nha
       this.createUserInDB(),
-      /// [UserService.emitCreateUserEvent]
+      /// [UserService.emitCreateUserEvent] Emit event
       this.emitCreateUserEvent()
     ]);
 
@@ -30,7 +30,7 @@ export class UserService {
     return null;
   }
 
-  /// [UserService.emitCreateUserEvent]
+  /// [UserService.emitCreateUserEvent] Emit event
   private emitCreateUserEvent() {
     /// "$" -> "RabbitMQ": Fire event user.create to global
   }
