@@ -3,15 +3,15 @@
 | Element | Description |  
 |---|---|  
 | DOC | --- |
-|[yas-sequence-diagram~SequenceDiagram](#yas-sequence-diagram~SequenceDiagram)| Auto extract comment line in code to sequence diagrams|  
+|[yas-sequence-diagram](#yas-sequence-diagram)| Auto extract comment line in code to sequence diagrams ...|  
   
   
 # Details
-## yas-sequence-diagram~SequenceDiagram <a name="yas-sequence-diagram~SequenceDiagram"></a>
+## yas-sequence-diagram <a name="yas-sequence-diagram"></a>
 Auto extract comment line in code to sequence diagrams  
 
 ```yaml
-- yas-sequence-diagram~SequenceDiagram:
+- yas-sequence-diagram:
     commentTag: ///             # Prefix each of line which will be handled to document (optional)
                                 # Default: 
                                 # .js, .ts, .go, .java is ///

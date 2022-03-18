@@ -1,4 +1,4 @@
-import { merge } from "lodash";
+import merge from "lodash.merge";
 import { ElementProxy } from "yaml-scene/src/elements/ElementProxy";
 import { IElement } from "yaml-scene/src/elements/IElement";
 import { Parser } from "./Parser";
@@ -6,11 +6,11 @@ import { Exporter } from "./Exporter";
 import { Scanner } from "./Scanner";
 
 /**
- * yas-sequence-diagram~SequenceDiagram
+ * yas-sequence-diagram
  * @description Auto extract comment line in code to sequence diagrams
  * @group doc
  * @example
-- yas-sequence-diagram~SequenceDiagram:
+- yas-sequence-diagram:
     commentTag: ///             # Prefix each of line which will be handled to document (optional)
                                 # Default: 
                                 # .js, .ts, .go, .java is ///

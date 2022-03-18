@@ -1,4 +1,4 @@
-- yas-sequence-diagram~SequenceDiagram:
+- yas-sequence-diagram:
     includes: 
       - ../../test/resources
     excludes: []

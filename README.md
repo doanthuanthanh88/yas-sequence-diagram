@@ -24,7 +24,7 @@ Must install `yaml-scene`
 ```
 3. Create a file `seq_diagram_scene.yaml`
 ```yaml
-  - yas-sequence-diagram~SequenceDiagram:
+  - yas-sequence-diagram:
       commentTag: ///             # Prefix each of line which will be handled to document (optional)
                                   # Default: 
                                   # .js, .ts, .go, .java is ///

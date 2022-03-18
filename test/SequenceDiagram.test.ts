@@ -1,14 +1,12 @@
 import { join } from "path"
 import { Simulator } from "yaml-scene/src/Simulator"
 
-describe('Unit test extension', () => {
-
-  test('Test extension', async () => {
-    await Simulator.Run(`
+test('Test Sequence Diagram', async () => {
+  await Simulator.Run(`
 extensions:
-  - ${require.resolve('../src/SequenceDiagram')}
+  yas-sequence-diagram: ${require.resolve('../src')}
 steps:
-  - SequenceDiagram:
+  - yas-sequence-diagram:
       commentTag: ///
       includes: 
         - ${join(__dirname, 'resources')}
@@ -16,5 +14,4 @@ steps:
       includePattern: ".+\.ts$"
       outDir: ${join(__dirname, 'resources/result')}
 `)
-  })
 })

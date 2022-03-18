@@ -18,7 +18,6 @@ MongoDB
 RabbitMQ
 
 %% Main flows
-RabbitMQ-.->|sub/on|Worker
 Client==>App
 App==>AuthService
 
@@ -26,6 +25,7 @@ App==>AuthService
 App-->MongoDB
 
 App-.->|pub/emit|RabbitMQ
+RabbitMQ-.->|sub/on|Worker
 ```
 
 

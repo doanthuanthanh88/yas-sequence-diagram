@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 import { ControlModel } from './ControlModel';
 import { Parser } from '../Parser';
 

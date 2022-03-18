@@ -1,4 +1,4 @@
-import { uniqWith } from "lodash"
+import uniqWith from "lodash.uniqwith"
 import { join } from "path"
 import { FileDataSource } from "yaml-scene/src/utils/data-source/file/FileDataSource"
 import { FunctionModel } from "./model/FunctionModel"
