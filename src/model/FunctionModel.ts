@@ -3,7 +3,8 @@ import { ControlModel } from './ControlModel';
 import { GroupModel } from './GroupModel';
 
 /**
- * Startup function
+ * @guide
+ * @name Startup function
  * @h2 ##
  * @order 1
  * @description Each of startup function will be generated to a single sequence diagram file
@@ -70,6 +71,7 @@ sequenceDiagram
 RabbitMQ --) Worker: Consume queue user.created
 Worker ->> Worker: Print user data
 ```
+ * @end
  */
 export class FunctionModel extends ControlModel {
   name?: string;

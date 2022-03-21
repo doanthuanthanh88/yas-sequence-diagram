@@ -1,17 +1,17 @@
 import uniqWith from "lodash.uniqwith"
 import { join } from "path"
-import { FileDataSource } from "yaml-scene/src/utils/data-source/file/FileDataSource"
+import { File } from "yaml-scene/src/elements/File/adapter/File"
 import { FunctionModel } from "./model/FunctionModel"
 
 /**
- * Guide
+ * @guide
+ * @name Guide
  * @h2 #
  * @order 0
  * @description How to used comment to generate to sequence diagram  
- * - Example at [here](./test/resources/)
- * - Output sequence diagram at [here](./test/resources/result/README.md)
- * @exampleType custom
- * @example
+- Example at [here](./test/resources/)
+- Output sequence diagram at [here](./test/resources/result/README.md)
+ * @end
  */
 export class Exporter {
   constructor(private outDir: string) {
@@ -25,7 +25,7 @@ export class Exporter {
   }
 
   private async exportIndex(functions: FunctionModel[]) {
-    new FileDataSource(join(this.outDir, 'README.md'))
+    new File(join(this.outDir, 'README.md'))
       .write(`# Application document details
 ## System overview
 Describe all of components in application
@@ -91,7 +91,7 @@ ${subjects.map(sub => sub.toMMD()).join('\n')}
       .filter(func => !func.name)
       // .sort((a, b) => a.description > b.description ? 1 : -1)
       .map(func => {
-        new FileDataSource(join(this.outDir, func.description + '.md'))
+        new File(join(this.outDir, func.description + '.md'))
           .write(`# ${func.description}
 \`\`\`mermaid
 sequenceDiagram

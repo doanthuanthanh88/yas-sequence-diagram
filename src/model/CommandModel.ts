@@ -2,7 +2,8 @@ import { ControlModel } from './ControlModel';
 import { SubjectInfor } from './SubjectInfor';
 
 /**
- * Requests
+ * @guide
+ * @name Requests
  * @h2 ##
  * @order 3
  * @description Describle a request to other services. (HTTP requests, grpc requests...)
@@ -48,10 +49,12 @@ App ->> PostService: Create a new post
 PostService -->> App: Return Post
 App -->> Client: Response 200
 ```
+ * @end
  */
 
 /**
- * Actions
+ * @guide
+ * @name Actions
  * @h2 ##
  * @order 3
  * @description Describle synchronized actions. (Insert into DB, Push a cache to redis...)
@@ -96,10 +99,12 @@ MongoDB -->> MyService: Done
 MyService ->> Redis: Push post to cached
 Redis -->> MyService: Done
 ```
+ * @end
  */
 
 /**
- * Publisher
+ * @guide
+ * @name Publisher
  * @h2 ##
  * @order 3
  * @description Publish an async event via RabbitMQ, Kafka, Queue...
@@ -135,10 +140,12 @@ App -) RabbitMQ: Emit "post.created"
 
 App -) App: Emit "internal.post_created"
 ```
+ * @end
  */
 
 /**
- * Subscriber
+ * @guide
+ * @name Subscriber
  * @h2 ##
  * @order 3
  * @description Subscribe a queue in RabbitMQ, kafka, global event... to receive data
@@ -190,6 +197,7 @@ sequenceDiagram
 App --) App: Subscribe internal queue "internal.post_created"
 
 ```
+ * @end
  */
 
 export class CommandModel extends ControlModel {

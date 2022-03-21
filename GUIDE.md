@@ -156,7 +156,6 @@ OPT This function handle user creating
 END
 ```
 
-
 ## Requests
 Describle a request to other services. (HTTP requests, grpc requests...)  
 - Service1 send a request(http, grpc...) to Service2(Other Services)

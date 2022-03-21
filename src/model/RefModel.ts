@@ -3,7 +3,8 @@ import { ControlModel } from './ControlModel';
 import { Parser } from '../Parser';
 
 /**
- * Reference function
+ * @guide
+ * @name Reference function
  * @h2 ##
  * @order 2
  * @description Define a function which will be called in other funtions
@@ -59,7 +60,7 @@ OPT This function handle user creating
   Client ->> App: Request to create new user
 END
 ```
-
+ * @end
  */
 export class RefModel extends ControlModel {
   name: string;

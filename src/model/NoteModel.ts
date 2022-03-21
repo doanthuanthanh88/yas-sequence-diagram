@@ -2,7 +2,8 @@ import { ControlModel } from './ControlModel';
 import { SubjectInfor } from './SubjectInfor';
 
 /**
- * Note
+ * @guide
+ * @name Note
  * @h2 ##
  * @description Add notes in diagram
  * @exampleType custom
@@ -45,6 +46,7 @@ NOTE LEFT OF Service1: Note a left
 NOTE RIGHT OF Service2: Note a right
 NOTE OVER Service1, Service2: Note over all
 ```
+ * @end
  */
 export class NoteModel extends ControlModel {
   action: string

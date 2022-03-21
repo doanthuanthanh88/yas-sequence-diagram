@@ -2,7 +2,8 @@ import { RefModel } from './RefModel';
 import { SupportChildsModel } from './SupportChildsModel';
 
 /**
- * Parallel
+ * @guide
+ * @name Parallel
  * @h2 ##
  * @description Describle parallel jobs
  * @exampleType custom
@@ -87,6 +88,7 @@ AND Fire an event to globals
   App -) RabbitMQ: Emit "user.login"
 END
 ```
+ * @end
  */
 export class ParallelModel extends SupportChildsModel {
   action: string;
