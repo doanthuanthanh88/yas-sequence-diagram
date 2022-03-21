@@ -3190,10 +3190,10 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml-scene@^1.0.0-rc:
-  version "1.0.0-rc.7"
-  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.0.0-rc.7.tgz#498c56140f765f28066069e192dad80e2509a447"
-  integrity sha512-9gAaJtA7yT8W1wzzBYS+fAdkqJ4vMX6rCXC3h2+FpeJg6DmesxcQm01xqqw04lKnIE6QJcPRSAW3uh6XydawgQ==
+yaml-scene@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.0.1.tgz#5ecc2ffba5f419d7bd5ed24b843bcf0c302d3855"
+  integrity sha512-9CgidlxzOFhDWgI+lZkUvEfBmL3J07fp7VFRc92u70RsS6jss9jdKRXhIgAAoiJH83gt8u+7t17NMjRAExYa6g==
   dependencies:
     "@koa/cors" "^3.2.0"
     "@koa/router" "^10.1.1"
