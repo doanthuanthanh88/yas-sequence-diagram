@@ -1,0 +1,3 @@
+[submodule "yas-sequence-diagram.wiki"]
+	path = yas-sequence-diagram.wiki
+	url = https://github.com/doanthuanthanh88/yas-sequence-diagram.wiki.git

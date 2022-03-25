@@ -1,28 +1,29 @@
 # yas-sequence-diagram
 A Yaml-scene extension which generate sequence diagrams from comment line in code
 
-# Prerequisite
-Must install `yaml-scene`
+> It's an extension for `yaml-scene`  
+
+## Features:
+- Generate to sequence diagram base on comment lines in code
+- Auto analystic sequence diagram to exports to a flow diagram which describe components in service, communications between them...
+
+## Details document
+> [Wiki Pages](https://github.com/doanthuanthanh88/yas-sequence-diagram/wiki)
+
+## Prerequisite
+- Platform [`yaml-scene`](https://www.npmjs.com/package/yaml-scene)
+
+
+## Installation
 
 ```sh
-  # Install via yarn
-  yarn global add yaml-scene
-
-  # Or install via npm
-  npm install -g yaml-scene
+  yas add yas-sequence-diagram        # npm install -g yas-sequence-diagram OR yard global add yas-sequence-diagram
 ```
 
-# How to use
+## Example
+[Examples scenario files](./scenes/test)
 
-1. Install the extension
-```sh
-  # Install via yarn
-  yarn global add yas-sequence-diagram
-
-  # Or install via npm
-  npm install -g yas-sequence-diagram
-```
-3. Create a file `seq_diagram_scene.yaml`
+1. Create a file `seq_diagram_scene.yaml`
 ```yaml
   - yas-sequence-diagram:
       commentTag: ///             # Prefix each of line which will be handled to document (optional)
@@ -41,21 +42,16 @@ Must install `yaml-scene`
 
       includePattern: ".+\\.ts$"  # Files matched this pattern will be handled (required)
 
-      outDir: /tmp/sequence_diagram   # Output directory which includes sequence diagrams
+      outDir:  (/tmp/sequence_diagram)   # Output directory which includes sequence diagrams
 ```
 
-4. Make a new output directory
-```sh
-  mkdir /tmp/sequence_diagram
-```
+2. Make sure the `ourDir` *`/tmp/sequence_diagram`* is existed
 
-5. Run to generate sequence diagram
+3. Run to generate sequence diagram
 ```sh
   yas seq_diagram_scene.yaml
 ```
 
-6. After done, please go to `/sequence_diagram` to see result
+4. After done, please go to `/tmp/sequence_diagram` to see result. 
 
-# Guide
-
-Please go to [here](./GUIDE.md) for details
+> [Output demo](./test/resources/result/README.md)
