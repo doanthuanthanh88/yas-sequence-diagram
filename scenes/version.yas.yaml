@@ -13,19 +13,17 @@
           value: prerelease
     - title: PreID
       var: preid
-    - title: Comment
-      var: comment
 
 - UserInput:
-    - title: npm version ${version} --preid=${preid} -m "${comment}"
+    - title: npm version ${version} --preid=${preid}
       type: confirm
       default: true
       var: ok
-    
+
 - Script/Sh:
     if: ${ok}
     logLevel: debug
     content: |
-      npm version ${version} --preid=${preid} -m "${comment}"
+      npm version ${version} --preid=${preid}
       git push
       git push --tags
