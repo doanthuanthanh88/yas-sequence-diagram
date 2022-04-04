@@ -23,6 +23,23 @@ A Yaml-scene extension which generate sequence diagrams from comment line in cod
 ## Example
 [Examples scenario files](./scenes/test)
 
+## How to run
+
+### Run via docker
+```sh
+docker run --rm -it \
+  -v $PWD:/input \
+  -v $PWD:/output \
+  doanthuanthanh88/yaml-scene \
+  -f \
+  https://raw.githubusercontent.com/doanthuanthanh88/yas-sequence-diagram/main/practice/sequence_doc.yas.yaml
+```
+
+> Mount folder includes sources code to `/input`. (Default is `$PWD`)  
+> Mount folder contains the result to `/output`. The result will be saved to `/output/seq_doc`. (Default is `$PWD/seq_doc`)
+
+### Run in local
+
 1. Create a file `seq_diagram_scene.yaml`
 ```yaml
   - yas-sequence-diagram:
@@ -45,13 +62,11 @@ A Yaml-scene extension which generate sequence diagrams from comment line in cod
       outDir:  (/tmp/sequence_diagram)   # Output directory which includes sequence diagrams
 ```
 
-2. Make sure the `ourDir` *`/tmp/sequence_diagram`* is existed
-
-3. Run to generate sequence diagram
+2. Run to generate sequence diagram
 ```sh
   yas seq_diagram_scene.yaml
 ```
 
-4. After done, please go to `/tmp/sequence_diagram` to see result. 
+3. After done, please go to `/tmp/sequence_diagram` to see result. 
 
 > [Output demo](./test/resources/result/README.md)

@@ -8,4 +8,4 @@
       - ${src}
     excludes: []
     includePattern: .+.ts$
-    outDir: ${doc}
+    outDir: ${doc}/seq_doc
