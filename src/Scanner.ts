@@ -2,8 +2,8 @@ import { statSync } from 'fs';
 import { readdir } from 'fs/promises';
 import { extname, join } from 'path';
 import { EventEmitter } from 'stream';
-import { Parser } from './Parser';
 import { Exporter } from './Exporter';
+import { Parser } from './Parser';
 
 export class Scanner {
   private static DefaultConfig = {
@@ -47,7 +47,7 @@ export class Scanner {
 
       if (st.isDirectory()) {
         if (!excludes?.find(ex => path.startsWith(ex))) {
-          const commentModels = await this.scanDir(path, excludes, includePattern);
+          const commentModels = await this.scanDir(path, excludes, includePattern, commentTag);
           return commentModels
         }
       }

@@ -1,8 +1,8 @@
 import merge from "lodash.merge";
 import { ElementProxy } from "yaml-scene/src/elements/ElementProxy";
 import { IElement } from "yaml-scene/src/elements/IElement";
-import { Parser } from "./Parser";
 import { Exporter } from "./Exporter";
+import { Parser } from "./Parser";
 import { Scanner } from "./Scanner";
 
 /**
@@ -47,7 +47,7 @@ export class SequenceDiagram implements IElement {
   }
 
   async prepare() {
-    await this.proxy.applyVars(this, 'includes', 'excludes', 'includePattern', 'outDir')
+    await this.proxy.applyVars(this, 'includes', 'excludes', 'includePattern', 'outDir', 'commentTag')
     if (!this.includes) this.includes = []
     if (!this.excludes) this.excludes = []
     if (this.includePattern) this.includePattern = new RegExp(this.includePattern.toString())

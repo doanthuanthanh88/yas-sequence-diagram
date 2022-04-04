@@ -1,0 +1,11 @@
+- Vars:
+    src: /input
+    doc: /output
+
+- yas-sequence-diagram:
+    commentTag: "///"
+    includes:
+      - ${src}
+    excludes: []
+    includePattern: .+.ts$
+    outDir: ${doc}
