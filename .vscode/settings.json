@@ -16,7 +16,7 @@
     },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": false,
+        "source.organizeImports": true,
     },
     "typescript.tsc.autoDetect": "off",
     "npm.autoDetect": "off",

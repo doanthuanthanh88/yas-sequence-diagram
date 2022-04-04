@@ -32,7 +32,9 @@ import { Scanner } from "./Scanner";
  * @end
  */
 export class SequenceDiagram implements IElement {
-  proxy: ElementProxy<any>
+  proxy: ElementProxy<this>
+  $$: IElement
+  $: this
 
   includes?: string[]
   excludes?: string[]
@@ -41,17 +43,18 @@ export class SequenceDiagram implements IElement {
   commentTag: string
 
   init(props: any) {
-    if (!props.outDir) throw new Error(`"outDir" is required in ${this.constructor.name}`)
     merge(this, props)
   }
 
-  prepare() {
+  async prepare() {
+    await this.proxy.applyVars(this, 'includes', 'excludes', 'includePattern', 'outDir')
     if (!this.includes) this.includes = []
     if (!this.excludes) this.excludes = []
     if (this.includePattern) this.includePattern = new RegExp(this.includePattern.toString())
     this.includes = this.includes.map(p => this.proxy.resolvePath(p))
     this.excludes = this.excludes.map(p => this.proxy.resolvePath(p))
     this.outDir = this.proxy.resolvePath(this.outDir)
+    if (!this.outDir) throw new Error(`"outDir" is required in ${this.constructor.name}`)
   }
 
   async exec() {

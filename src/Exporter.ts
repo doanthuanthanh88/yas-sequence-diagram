@@ -25,8 +25,8 @@ export class Exporter {
   }
 
   private async exportIndex(functions: FunctionModel[]) {
-    new File(join(this.outDir, 'README.md'))
-      .write(`# Application document details
+    const writer = new File(join(this.outDir, 'README.md'))
+    await writer.write(`# Application document details
 ## System overview
 Describe all of components in application
 
@@ -36,10 +36,10 @@ ${await this.getOverviewMMD(functions)}
 Visualize flows in application to sequence diagrams
 
 ${functions
-          .filter(func => !func.name)
-          .sort((a, b) => a.description > b.description ? 1 : -1)
-          .map((func, i) => `${+i + 1}. [${func.description}](./${func.filename}.md)`)
-          .join('\n')}
+        .filter(func => !func.name)
+        .sort((a, b) => a.description > b.description ? 1 : -1)
+        .map((func, i) => `${+i + 1}. [${func.description}](./${func.filename}.md)`)
+        .join('\n')}
 `)
   }
 
@@ -90,9 +90,9 @@ ${subjects.map(sub => sub.toMMD()).join('\n')}
     await Promise.all(functions
       .filter(func => !func.name)
       // .sort((a, b) => a.description > b.description ? 1 : -1)
-      .map(func => {
-        new File(join(this.outDir, func.description + '.md'))
-          .write(`# ${func.description}
+      .map(async (func) => {
+        const writer = new File(join(this.outDir, func.description + '.md'))
+        await writer.write(`# ${func.description}
 \`\`\`mermaid
 sequenceDiagram
 
