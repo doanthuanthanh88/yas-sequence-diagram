@@ -1,11 +1,10 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "declaration": true,
-    "removeComments": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    "watch": true,
+    "strict": true,
+    "noEmit": true,
+    "strictPropertyInitialization": false,
     "paths": {
       "@app/*": [
         "./src/*"

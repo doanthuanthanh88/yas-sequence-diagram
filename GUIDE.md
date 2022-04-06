@@ -3,17 +3,19 @@
 | Element | Description |  
 |---|---|  
 | DOC | --- |
-|[yas-sequence-diagram](#yas-sequence-diagram)| Auto extract comment line in code to sequence diagrams ...|  
+|[yas-sequence-diagram](#user-content-doc-yas-sequence-diagram)| Auto extract comment line in code to sequence diagrams ...|  
   
   
 # Details
-## yas-sequence-diagram <a name="yas-sequence-diagram"></a>
+<a id="user-content-doc-yas-sequence-diagram" name="user-content-doc-yas-sequence-diagram"></a>
+## yas-sequence-diagram
+`doc`  
 Auto extract comment line in code to sequence diagrams  
 
 ```yaml
 - yas-sequence-diagram:
     commentTag: ///             # Prefix each of line which will be handled to document (optional)
-                                # Default: 
+                                # Default:
                                 # .js, .ts, .go, .java is ///
                                 # .py, .yaml is #/
                                 # others must be set before run
@@ -31,10 +33,11 @@ Auto extract comment line in code to sequence diagrams
     outDir: /sequence_diagram   # Output directory which includes sequence diagrams
 ```
 
+<br/>
 
   
 # Guide
-How to used comment to generate to sequence diagram  
+How to used comment to generate to sequence diagram
 - Example at [here](./test/resources/)
 - Output sequence diagram at [here](./test/resources/result/README.md)  
 
@@ -50,11 +53,11 @@ Each of startup function will be generated to a single sequence diagram file
     []{Context} Description
   ```
 
-What's `Context`:  
-> There are 2 contexts in app.  
-> The first is Worker, the second is ApiServer  
-> A function is used in Worker and ApiServer.  
-> So you can pass Worker, or API Server into context to make sequence diagram describe it  
+What's `Context`:
+> There are 2 contexts in app.
+> The first is Worker, the second is ApiServer
+> A function is used in Worker and ApiServer.
+> So you can pass Worker, or API Server into context to make sequence diagram describe it
 
 ### Example
 
@@ -69,7 +72,7 @@ class UserController {
 }
 ```
 
-Output:  
+Output:
 File `Create a new user.md` will be generated
 
 ```mermaid
@@ -93,7 +96,7 @@ class Worker {
 }
 ```
 
-Output:  
+Output:
 File `Consume from RabbitMQ.md` will be generated
 
 ```mermaid
@@ -124,14 +127,14 @@ class UserController {
   /// [](App) Create a new user
   async createUser() {
 
-    /// [requestClass] 
+    /// [requestClass]
     await this.requestClass()
 
     /// [requestUser] This function handle user creating
     await this.requestUser()
   }
 
-  /// [requestClass] 
+  /// [requestClass]
   private requestClass() {
     /// "Client" => "$": Request to create a new class
   }
@@ -156,48 +159,6 @@ OPT This function handle user creating
 END
 ```
 
-## Requests
-Describle a request to other services. (HTTP requests, grpc requests...)  
-- Service1 send a request(http, grpc...) to Service2(Other Services)
-  ```text
-    "Service1" => "Service2: Description"
-  ```
-
-- After Service2(Other Services) done, it response to Service1
-  ```text
-    "Service1" <= "Service2: Description"
-  ```
-
-### Example:
-
-Input:
-
-```typescript
-class PostController {
-  createPost(post: Post) {
-    /// "Client" => "$": Create a new post
-
-    /// "$" => "PostService": Create a new post
-    this.postService.create(post)
-    /// "$" <= "PostService": Return Post
-    
-    /// "Client" <= "$": Response 200
-  }
-}
-
-```
-
-Output:
-
-```mermaid
-sequenceDiagram
-
-Client ->> App: Create a new post
-App ->> PostService: Create a new post
-PostService -->> App: Return Post
-App -->> Client: Response 200
-```
-
 ## Actions
 Describle synchronized actions. (Insert into DB, Push a cache to redis...)  
 - Service1 call Component1(DB, itself...) to do something
@@ -211,7 +172,7 @@ Describle synchronized actions. (Insert into DB, Push a cache to redis...)
 
 Example:
 
-Input: 
+Input:
 
 ```typescript
 class PostService {
@@ -249,7 +210,7 @@ Publish an async event via RabbitMQ, Kafka, Queue...
 
 ### Example:
 
-Input: 
+Input:
 
 ```typescript
 
@@ -271,6 +232,48 @@ sequenceDiagram
 App -) RabbitMQ: Emit "post.created"
 
 App -) App: Emit "internal.post_created"
+```
+
+## Requests
+Describle a request to other services. (HTTP requests, grpc requests...)  
+- Service1 send a request(http, grpc...) to Service2(Other Services)
+  ```text
+    "Service1" => "Service2: Description"
+  ```
+
+- After Service2(Other Services) done, it response to Service1
+  ```text
+    "Service1" <= "Service2: Description"
+  ```
+
+### Example:
+
+Input:
+
+```typescript
+class PostController {
+  createPost(post: Post) {
+    /// "Client" => "$": Create a new post
+
+    /// "$" => "PostService": Create a new post
+    this.postService.create(post)
+    /// "$" <= "PostService": Return Post
+
+    /// "Client" <= "$": Response 200
+  }
+}
+
+```
+
+Output:
+
+```mermaid
+sequenceDiagram
+
+Client ->> App: Create a new post
+App ->> PostService: Create a new post
+PostService -->> App: Return Post
+App -->> Client: Response 200
 ```
 
 ## Subscriber
@@ -297,7 +300,7 @@ class GlobalEvent {
   onInternalPostCreated(post: Post) {
     /// "$" -> "$": Subscribe internal queue "internal.post_created"
   }
-  
+
 }
 ```
 
@@ -383,7 +386,7 @@ GROUP Description
 
 ```typescript
 class AuthService {
-  
+
   request() {
     /// GROUP Validate request
     function validate() {
@@ -401,7 +404,7 @@ class AuthService {
 sequenceDiagram
 
 OPT Validate request
-  App ->> AuthService: Validate request  
+  App ->> AuthService: Validate request
   AuthService -->> App: Response 200
 END
 ```
@@ -504,7 +507,7 @@ class Login {
       ///   "App" => "AuthService": Send a login request
       this.authService.login(),
 
-      /// AND Emit an event to globals 
+      /// AND Emit an event to globals
       ///   "App" -> "RabbitMQ": Emit "user.login"
       this.rabbitMQ.publish()
     ])
@@ -512,7 +515,7 @@ class Login {
 }
 ```
 
-Output: 
+Output:
 
 ```mermaid
 sequenceDiagram
@@ -520,7 +523,7 @@ sequenceDiagram
 PAR Login user
   App ->> AuthService: Send a login request
   AuthService -->> App: Response OK
-AND Fire an event to globals 
+AND Fire an event to globals
   App -) RabbitMQ: Emit "user.login"
 END
 ```
@@ -534,7 +537,7 @@ class Login {
     Promise.all([
       /// [login] Login user
       this.authService.login(),
-      /// [publishUserLogin] Emit an event to globals 
+      /// [publishUserLogin] Emit an event to globals
       this.publishUserLogin()
     ])
   }
@@ -553,7 +556,7 @@ class Login {
 }
 ```
 
-Output: 
+Output:
 
 ```mermaid
 sequenceDiagram
@@ -561,7 +564,7 @@ sequenceDiagram
 PAR Login user
   App ->> AuthService: Send a login request
   AuthService -->> App: Response OK
-AND Fire an event to globals 
+AND Fire an event to globals
   App -) RabbitMQ: Emit "user.login"
 END
 ```
