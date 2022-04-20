@@ -1,7 +1,6 @@
 import { SupportChildsModel } from './SupportChildsModel';
 
-/**
- * @guide
+/*****
  * @name Conditional
  * @h2 ##
  * @description Describe If then else then...
@@ -56,8 +55,7 @@ ELSE
   App -->> Client: Response 200
 END
 ```
- * @end
- */
+*/
 export class ConditionModel extends SupportChildsModel {
   action: string;
   description: string;

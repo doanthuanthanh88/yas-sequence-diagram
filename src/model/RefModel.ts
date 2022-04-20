@@ -1,9 +1,8 @@
 import cloneDeep from 'lodash.clonedeep';
-import { ControlModel } from './ControlModel';
 import { Parser } from '../Parser';
+import { ControlModel } from './ControlModel';
 
-/**
- * @guide
+/*****
  * @name Reference function
  * @h2 ##
  * @order 2
@@ -60,8 +59,7 @@ OPT This function handle user creating
   Client ->> App: Request to create new user
 END
 ```
- * @end
- */
+*/
 export class RefModel extends ControlModel {
   name: string;
   description?: string

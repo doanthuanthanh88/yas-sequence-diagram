@@ -1,5 +1,6 @@
 # Document
-*Describe all of elements in tool. (meaning, how to use...)*
+Describe all of elements in tool. (meaning, how to use...)
+
 | Element | Description |  
 |---|---|  
 | DOC | --- |

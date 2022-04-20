@@ -1,8 +1,7 @@
 import { ControlModel } from './ControlModel';
 import { SubjectInfor } from './SubjectInfor';
 
-/**
- * @guide
+/*****
  * @name Requests
  * @h2 ##
  * @order 3
@@ -49,11 +48,9 @@ App ->> PostService: Create a new post
 PostService -->> App: Return Post
 App -->> Client: Response 200
 ```
- * @end
- */
+*/
 
-/**
- * @guide
+/*****
  * @name Actions
  * @h2 ##
  * @order 3
@@ -99,11 +96,9 @@ MongoDB -->> MyService: Done
 MyService ->> Redis: Push post to cached
 Redis -->> MyService: Done
 ```
- * @end
- */
+*/
 
-/**
- * @guide
+/*****
  * @name Publisher
  * @h2 ##
  * @order 3
@@ -140,11 +135,9 @@ App -) RabbitMQ: Emit "post.created"
 
 App -) App: Emit "internal.post_created"
 ```
- * @end
- */
+*/
 
-/**
- * @guide
+/*****
  * @name Subscriber
  * @h2 ##
  * @order 3
@@ -197,8 +190,7 @@ sequenceDiagram
 App --) App: Subscribe internal queue "internal.post_created"
 
 ```
- * @end
- */
+*/
 
 export class CommandModel extends ControlModel {
   private static readonly ACTIONS = ['>', '<', '->', '<-', '=>', '<='];

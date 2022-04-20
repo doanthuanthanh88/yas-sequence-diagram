@@ -1095,9 +1095,9 @@ commander@^2.14.1, commander@^2.9.0:
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
 commander@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-9.1.0.tgz#a6b263b2327f2e188c6402c42623327909f2dbec"
-  integrity sha512-i0/MaqBtdbnJ4XQs4Pmyb+oFQl+q0lsAmokVUH92SlSw4fkeAcG3bVon+Qt7hmtF+u3Het6o4VgrcY3qAoEB6w==
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-9.2.0.tgz#6e21014b2ed90d8b7c9647230d8b7a94a4a419a9"
+  integrity sha512-e2i4wANQiSXgnrBlIatyHtP1odfUp0BbV5Y5nEGbxtIrStkEOAAzCUirvLBNXHLr7kwLvJl6V+4V3XV9x7Wd9w==
 
 commander@~2.14.1:
   version "2.14.1"
@@ -3372,9 +3372,9 @@ yallist@^4.0.0:
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 yaml-scene@^1.1.16:
-  version "1.1.16"
-  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.1.16.tgz#9d8dd7aa6a8e7e28edcd6d45de4bbbca4b378c09"
-  integrity sha512-YrWU+3nrzEcFc8uXQ6H+FN5ZiXsEeNAvgkXnmoRd91WrNwOtD4wFylIhAaKOQSVitu4j0Xw5P+nrrkt9arwP8g==
+  version "1.1.22"
+  resolved "https://registry.yarnpkg.com/yaml-scene/-/yaml-scene-1.1.22.tgz#9d0493e1be147277a721d0ce718065d0b77fc09b"
+  integrity sha512-PU9KAUutd/SANkxfsP3ECpHhYvLYq2MFzF8YKw36YSMNRgIqA91i4J3IMxXG6/8ar9qlPj060xVcaIZ6L98+Mg==
   dependencies:
     chai "^4.3.6"
     chalk "^4.1.2"

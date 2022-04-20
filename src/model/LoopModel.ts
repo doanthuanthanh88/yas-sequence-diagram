@@ -1,7 +1,6 @@
 import { SupportChildsModel } from './SupportChildsModel';
 
-/**
- * @guide
+/*****
  * @name Loop
  * @h2 ##
  * @description Scan all of items in list
@@ -40,8 +39,7 @@ LOOP List products
   ProductService -->> App: Response a product information
 END
 ```
- * @end
- */
+*/
 export class LoopModel extends SupportChildsModel {
   description: string;
 

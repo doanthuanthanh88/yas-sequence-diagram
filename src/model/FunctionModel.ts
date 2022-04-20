@@ -2,8 +2,7 @@ import { escape } from 'querystring';
 import { ControlModel } from './ControlModel';
 import { GroupModel } from './GroupModel';
 
-/**
- * @guide
+/*****
  * @name Startup function
  * @h2 ##
  * @order 1
@@ -71,7 +70,6 @@ sequenceDiagram
 RabbitMQ --) Worker: Consume queue user.created
 Worker ->> Worker: Print user data
 ```
- * @end
  */
 export class FunctionModel extends ControlModel {
   name?: string;

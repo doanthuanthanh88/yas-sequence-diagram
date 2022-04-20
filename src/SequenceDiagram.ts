@@ -5,8 +5,7 @@ import { Exporter } from "./Exporter";
 import { Parser } from "./Parser";
 import { Scanner } from "./Scanner";
 
-/**
- * @guide
+/*****
  * @name yas-sequence-diagram
  * @description Auto extract comment line in code to sequence diagrams
  * @group doc
@@ -29,7 +28,6 @@ import { Scanner } from "./Scanner";
     includePattern: ".+\\.ts$"  # Files matched this pattern will be handled (required)
 
     outDir: /sequence_diagram   # Output directory which includes sequence diagrams
- * @end
  */
 export class SequenceDiagram implements IElement {
   proxy: ElementProxy<this>

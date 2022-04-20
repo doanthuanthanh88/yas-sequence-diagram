@@ -1,7 +1,6 @@
 import { SupportChildsModel } from './SupportChildsModel';
 
-/**
- * @guide
+/*****
  * @name Group
  * @h2 ##
  * @description Group of sequence steps
@@ -36,7 +35,6 @@ OPT Validate request
   AuthService -->> App: Response 200
 END
 ```
- * @end
  */
 export class GroupModel extends SupportChildsModel {
   description: string;
